@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Trip Pro - Planner</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+    <header class="header-nav">
+        <div class="logo">
+            <i class="fa-solid fa-route"></i>
+            <span>Trip Planner</span>
+        </div>
+        <nav class="nav-links">
+            <ul>
+                <li><a href="/weather">Check Weather</a></li>
+                <li><a href="/search_spots">Search Spots</a></li>
+                <li><a href="https://www.expedia.co.in/Hotel-Search?adults=2&numRoom=1&regionId=826952065705930752&clickref=1101IBM9GGSr&affcid=IN.DIRECT.PHG.1011145458.0&ref_id=1101IBM9GGSr&my_ad=AFF.IN.DIRECT.PHG.1011145458.0&afflid=1101IBM9GGSr&affdtl=PHG.1101IBM9GGSr.&sort=RECOMMENDED&startDate=2025-10-23&endDate=2025-10-24&destination=Panvel%2C%20Maharashtra%2C%20India&theme=&userIntent=&semdtl=&categorySearch=&useRewards=false&hotelName=mumbai" target="_blank">Search Hotels</a></li>
+                <li><a href="/my_plans">My Plans</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+            <a href="/profile" class="profile-icon-btn" title="My Profile">
+                <i class="fa-solid fa-user-circle"></i>
+            </a>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <div class="dashboard-content-wrapper">
+            <div class="planner-card">
+                <h1>Where would you like to go?</h1>
+                <h4>Find your next destination</h4>
+                <div class="plan-inputs">
+                    <div class="input-row">
+                        <div class="input-group">
+                            <i class="fa-solid fa-location-crosshairs"></i>
+                            <input type="text" id="current-location" placeholder="Current Location">
+                        </div>
+                        <div class="input-group">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <input type="date" id="trip-date">
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div class="destination-input-wrapper">
+                            <div class="input-group">
+                                <i class="fa-solid fa-map-pin"></i>
+                                <input type="text" id="first-destination-input" class="destination-input" placeholder="Destination 1">
+                            </div>
+                            <button class="spot-search-btn" title="Search for famous spots">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                        <div class="input-group">
+                            <i class="fa-solid fa-indian-rupee-sign"></i>
+                            <input type="number" id="trip-budget" placeholder="Enter Budget">
+                        </div>
+                    </div>
+                    <div id="destinations-container"></div>
+                    <button class="add-destination-btn">
+                        <i class="fa-solid fa-plus"></i> Add Another Destination
+                    </button>
+                    <button class="add-plan-btn">
+                        <i class="fa-solid fa-check"></i> Create My Plan
+                    </button>
+                    <!-- CORRECTED: Removed the incorrect wrapping button for proper alignment -->
+                    <a href="/suggestions" class="ai-suggestion-btn" id="aiSuggestionBtn">
+                        <i class="fa-solid fa-robot"></i> AI Suggestion
+                    </a>
+                </div>
+                <div class="features-grid">
+                    <a href="https://www.expedia.co.in/Hotel-Search?adults=2&numRoom=1&regionId=826952065705930752&clickref=1101IBM9GGSr&affcid=IN.DIRECT.PHG.1011145458.0&ref_id=1101IBM9GGSr&my_ad=AFF.IN.DIRECT.PHG.1011145458.0&afflid=1101IBM9GGSr&affdtl=PHG.1101IBM9GGSr.&sort=RECOMMENDED&startDate=2025-10-23&endDate=2025-10-24&destination=Panvel%2C%20Maharashtra%2C%20India&theme=&userIntent=&semdtl=&categorySearch=&useRewards=false&hotelName=mumbai" class="feature-card" target="_blank">
+                        <i class="fa-solid fa-hotel"></i>
+                        <h3>Search Hotels</h3>
+                        <p>Find the best places to stay and premium accommodation.</p>
+                    </a>
+                    <a href="/search_spots" class="feature-card">
+                        <i class="fa-solid fa-map-marked-alt"></i>
+                        <h3>Explore Sites</h3>
+                        <p>Discover top-rated attractions and popular sites.</p>
+                    </a>
+                    <a href="/my_plans" class="feature-card">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                        <h3>View Itinerary</h3>
+                        <p>View and manage your trip plans and itineraries.</p>
+                    </a>
+                </div>
+            </div>
+            <div class="spot-results-container"></div>
+        </div>
+    </main>
+
+    <div id="gemini-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title"></h2>
+                <button class="modal-close-btn" onclick="closeGeminiModal()">&times;</button>
+            </div>
+            <div id="modal-body" class="modal-body"></div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='JS/dashboard.js') }}"></script>
+
+</body>
+</html>

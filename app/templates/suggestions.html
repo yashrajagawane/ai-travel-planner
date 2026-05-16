@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Itinerary Suggestions</title>
+    <!-- Added Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/suggestions.css') }}">
+</head>
+<body>
+    <!-- Added consistent header from dashboard -->
+    <header class="header-nav">
+        <div class="logo">
+            <i class="fa-solid fa-route"></i>
+            <span>Trip Planner</span>
+        </div>
+        <nav class="nav-links">
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/my_plans">My Plans</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+            <a href="/profile" class="profile-icon-btn" title="My Profile">
+                <i class="fa-solid fa-user-circle"></i>
+            </a>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <div class="container">
+            <header class="page-header">
+                <h1>Ask for AI-Powered Suggestions</h1>
+                <p>Describe your perfect trip and let our AI build an itinerary for you!</p>
+            </header>
+
+            <form method="POST" action="/suggestions" class="suggestion-form">
+                <div class="form-group">
+                    <label for="place">Destination:</label>
+                    <input type="text" id="place" name="place" required placeholder="e.g., Mumbai, Goa, etc.">
+                </div>
+                <div class="form-group">
+                    <label for="days">Duration (in days):</label>
+                    <input type="number" id="days" name="days" required min="1" max="30" placeholder="e.g., 7">
+                </div>
+                <div class="form-group">
+                    <label for="interests">Interests:</label>
+                    <input type="text" id="interests" name="interests" required placeholder="e.g., Temples, Local Food, Nature">
+                </div>
+                <button type="submit">Get Suggestions</button>
+            </form>
+
+            <div class="result-container">
+                <h2>Your Custom Itinerary</h2>
+                
+                {% if error %}
+                    <div class="error-message">
+                        <p><strong>Error:</strong> {{ error }}</p>
+                    </div>
+                {% endif %}
+
+                <div class="itinerary-output markdown-body">
+                    {% if response %}
+                        {{ response|safe }}
+                    {% else %}
+                        <p>Your generated plan will appear here once you submit the form.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Checker - Trip Planner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* General design variables */
+        :root {
+            --primary-purple: #4832d3;
+            --secondary-purple: #6a11cb;
+            --text-dark: #1e1e3a;
+            --text-light: #5a5a7a;
+            --white: #ffffff;
+            --light-bg: #f7f7fd;
+            --border-color: #e0e0e0;
+        }
+
+        /* --- Body Style --- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            /* UPDATED: A new, more prominent weather-related background image */
+            background-image: url('https://images.unsplash.com/photo-1592210454359-9043f067919b?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0, 0, 0, 0.25); /* Slightly darker overlay */
+            backdrop-filter: blur(5px);
+            z-index: -1;
+        }
+        
+        /* --- Header Navigation --- */
+        .header-nav {
+            padding: 20px 3%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 20, 0.25);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            width: 94%;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            text-decoration: none;
+        }
+
+        .nav-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links ul li a {
+            color: var(--white);
+            background: transparent;
+            border: 1.5px solid rgba(255, 255, 255, 0.18);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 18px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(30, 30, 58, 0.10);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s;
+        }
+        
+        .nav-links ul li a:hover {
+             background: rgba(255, 255, 255, 0.22);
+             color: var(--white);
+             font-weight: 600;
+             border: 1.5px solid var(--white);
+             box-shadow: 0 6px 24px 0 rgba(30,30,58,0.13);
+        }
+        
+        /* Main container to center the card */
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1; 
+            padding: 2rem;
+        }
+
+        /* Updated Card container - made larger */
+        .weather-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            padding: 3rem;
+            text-align: center;
+            width: 100%;
+            max-width: 550px; /* Increased max-width */
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        /* Title */
+        h2 {
+            margin-top: 0;
+            margin-bottom: 2rem; 
+            color: var(--text-dark);
+            font-size: 2.5rem; 
+            font-weight: 700;
+        }
+
+        /* Input form */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        input[type="text"] {
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            background-color: var(--light-bg);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary-purple);
+            box-shadow: 0 0 8px rgba(72, 50, 211, 0.2);
+        }
+
+        button {
+            background: var(--primary-purple);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 1rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: var(--secondary-purple);
+        }
+
+        /* Error message */
+        .error {
+            color: #e63946;
+            font-weight: 500;
+            margin-top: 1rem;
+            background-color: rgba(230, 57, 70, 0.1);
+            padding: 0.75rem;
+            border-radius: 8px;
+        }
+
+        /* Weather result styling */
+        .weather-info {
+            margin-top: 1.5rem;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--light-bg), var(--white));
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        .weather-info h3 {
+            margin: 0 0 1rem 0; /* Added bottom margin */
+            font-size: 2rem; /* Increased font size */
+        }
+        
+        /* New container for temp and icon */
+        .temp-details {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .weather-info img {
+            width: 120px; /* Increased icon size */
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+        }
+
+        .temp {
+            font-size: 5.5rem; /* Significantly larger temperature */
+            font-weight: 700;
+            color: var(--primary-purple);
+            line-height: 1; /* Adjust line height for better alignment */
+        }
+        
+        .condition {
+            font-size: 1.4rem; /* Increased font size */
+            color: var(--text-light);
+            font-weight: 500;
+            margin: 0;
+            text-transform: capitalize;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-nav { flex-direction: column; gap: 1rem; }
+            h2 { font-size: 2rem; }
+            .temp { font-size: 4.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .weather-card {
+                width: 90%;
+                padding: 2rem;
+            }
+            .temp-details {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .temp {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header-nav">
+        <a href="/dashboard" class="logo">
+            <i class="fa-solid fa-route"></i>
+            <span>Trip Planner</span>
+        </a>
+        <nav class="nav-links">
+            <ul>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/my_plans">My Plans</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <div class="weather-card">
+            <h2>Weather Checker</h2>
+            <form method="POST">
+                <input type="text" name="city" placeholder="Enter city name" required>
+                <button type="submit">Get Weather</button>
+            </form>
+
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+            
+            {% if weather %}
+                <div class="weather-info">
+                    <h3>{{ weather.city }}, {{ weather.country }}</h3>
+                    <div class="temp-details">
+                        <img src="https:{{ weather.icon }}" alt="Weather icon">
+                        <div class="temp">{{ weather.temp }}°C</div>
+                    </div>
+                    <p class="condition">{{ weather.condition }}</p>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+</head>
+<body>
+    <header class="header-nav">
+        <div class="logo">
+            <!-- The logo now links back to the dashboard -->
+            <a href="/dashboard">
+                <i class="fa-solid fa-route"></i>
+                <span>Trip Planner</span>
+            </a>
+        </div>
+        <nav class="nav-links">
+            <ul>
+                <!-- "My Plans" button has been removed as requested -->
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-container">
+        <div class="profile-card">
+            <div class="profile-header">
+                <i class="fa-solid fa-user-circle"></i>
+                <h1>{{ user.name }} {{ user.surname }}</h1>
+                <p>Here are your account details.</p>
+            </div>
+            <div class="profile-details">
+                <div class="detail-item">
+                    <span class="detail-label"><i class="fa-solid fa-envelope"></i> Email</span>
+                    <span class="detail-value">{{ user.email }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label"><i class="fa-solid fa-phone"></i> Phone Number</span>
+                    <span class="detail-value">{{ user.phone }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label"><i class="fa-solid fa-venus-mars"></i> Gender</span>
+                    <span class="detail-value">{{ user.gender.capitalize() }}</span>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

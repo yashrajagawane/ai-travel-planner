@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Famous Spots Finder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --primary-hover: #155bb5;
+            --secondary-color: #28a745;
+            --secondary-hover: #218838;
+            --text-dark: #333;
+            --text-light: #6c757d;
+            --white: #ffffff;
+            --shadow-light: rgba(0, 0, 0, 0.08);
+            --shadow-medium: rgba(0, 0, 0, 0.12);
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-image: url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(10, 10, 20, 0.5);
+            z-index: -1;
+        }
+
+        .container {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            padding: 40px 20px 80px 20px;
+            position: relative;
+        }
+        
+        .back-link {
+            position: absolute;
+            top: 30px;
+            left: 3%;
+            color: var(--white);
+            background: transparent;
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 18px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        h1 {
+            color: var(--white);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-weight: 700;
+            font-size: 2.8rem;
+            margin: 0 0 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin: 0;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 20px;
+            margin-top: -40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            background: var(--white);
+            border-radius: 50px;
+            padding: 8px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 600px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .search-wrapper:focus-within {
+            box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.2), 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        input#destination {
+            flex-grow: 1;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background: transparent;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+        }
+
+        button#search-btn {
+            padding: 0 24px;
+            border: none;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        button#search-btn:hover {
+            background-color: var(--primary-hover);
+            transform: scale(1.05);
+        }
+
+        #results {
+            width: 100%;
+            padding: 50px 20px 40px 20px;
+            box-sizing: border-box;
+        }
+        
+        .results-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+            color: var(--white);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .place {
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px var(--shadow-light);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            animation: fade-in-up 0.5s ease forwards;
+        }
+        
+        .place:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px var(--shadow-medium);
+        }
+        
+        .place-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            flex-grow: 1;
+        }
+
+        .place h3 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 1.3rem;
+        }
+
+        .place p {
+            margin: 0;
+            line-height: 1.6;
+            color: var(--text-light);
+            flex-grow: 1;
+        }
+        
+        .place-actions {
+            margin-top: auto;
+        }
+
+        .fun-fact-btn {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 15px;
+            border: none;
+            background: linear-gradient(45deg, var(--secondary-color), #219d3f);
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.2);
+        }
+
+        .fun-fact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+        }
+        
+        .place img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .place:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); display: flex;
+            justify-content: center; align-items: center; z-index: 1000;
+            opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .modal-overlay.show { opacity: 1; visibility: visible; }
+
+        .modal-content {
+            background: white; padding: 25px; border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.3); width: 90%;
+            max-width: 600px; max-height: 80vh; overflow-y: auto;
+            transform: scale(0.95); transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.show .modal-content { transform: scale(1); }
+
+        .modal-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid #e0e0e0; padding-bottom: 15px; margin-bottom: 20px;
+        }
+        
+        .modal-header h2 { margin: 0; font-size: 1.6rem; color: var(--primary-color); }
+
+        .modal-close-btn {
+            background: none; border: none; font-size: 2.2rem; cursor: pointer;
+            color: #aaa; line-height: 1; transition: color 0.2s, transform 0.2s;
+        }
+        .modal-close-btn:hover { color: #333; transform: rotate(90deg); }
+
+        .modal-body {
+             white-space: pre-wrap; text-align: left;
+             line-height: 1.7; color: var(--text-dark);
+        }
+        
+        .loading-spinner {
+            border: 4px solid #f3f3f3; border-top: 4px solid var(--primary-color);
+            border-radius: 50%; width: 40px; height: 40px;
+            animation: spin 1s linear infinite; margin: 40px auto;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <a href="/dashboard" class="back-link"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+            <h1>Famous Spots Finder</h1>
+            <p class="subtitle">Discover iconic landmarks anywhere in the world.</p>
+        </div>
+
+        <div class="search-container">
+            <div class="search-wrapper">
+                <input type="text" id="destination" placeholder="Enter a city (e.g., Pune)">
+                <button id="search-btn" onclick="searchSpots()">Search</button>
+            </div>
+        </div>
+        <div id="results"></div>
+    </div>
+    
+    <div id="gemini-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title"></h2>
+                <button class="modal-close-btn" onclick="closeGeminiModal()">&times;</button>
+            </div>
+            <div id="modal-body" class="modal-body"></div>
+        </div>
+    </div>
+
+    <script>
+        const TRIPMAP_API_KEY = "5ae2e3f221c38a28845f05b60a339f36bd2e48ff06daa20928a400e2";
+        const GEMINI_API_KEY = "AIzaSyAM-X_66HOSNaU0i7vIY2-CggodnTws7GI";
+        
+        const geminiModal = document.getElementById('gemini-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+        const destinationInput = document.getElementById('destination');
+        
+        destinationInput.addEventListener('keypress', (e) => e.key === 'Enter' && searchSpots());
+
+        function openGeminiModal(title, content) {
+            modalTitle.textContent = title;
+            modalBody.innerHTML = content;
+            geminiModal.classList.add('show');
+        }
+
+        function closeGeminiModal() {
+            geminiModal.classList.remove('show');
+        }
+
+        async function callGeminiAPI(prompt) {
+            if (!GEMINI_API_KEY || GEMINI_API_KEY === "PASTE_YOUR_GOOGLE_AI_STUDIO_KEY_HERE") {
+                const instructions = `
+                    <p style="font-weight: 600; font-size: 1.1rem;">Gemini API Key Needed</p>
+                    <p>To use this AI feature, you need a free API key from Google AI Studio.</p>
+                    <ol>
+                        <li>Go to <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio</a>.</li>
+                        <li>Click "Create API key" and copy it.</li>
+                        <li>Paste the key into the <code>GEMINI_API_KEY</code> variable in this file's code.</li>
+                    </ol>
+                `;
+                openGeminiModal('Configuration Needed', instructions);
+                return null;
+            }
+            
+            const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${GEMINI_API_KEY}`;
+            
+            try {
+                const payload = { contents: [{ parts: [{ text: prompt }] }] };
+                const response = await fetch(GEMINI_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    console.error("API call failed:", response.status, response.statusText);
+                    return "Sorry, there was an error getting a response.";
+                }
+
+                const result = await response.json();
+                return result.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
+
+            } catch (error) {
+                console.error("Error calling Gemini API:", error);
+                return "An error occurred fetching data. Please try again later.";
+            }
+        }
+        
+        async function getFunFact(placeName, button) {
+             const originalButtonText = button.innerHTML;
+             button.innerHTML = '<div class="loading-spinner" style="width:15px; height:15px; margin: 0 auto; border-width: 2px;"></div>';
+             button.disabled = true;
+
+             const prompt = `Tell me a single, interesting fun fact about "${placeName}". Keep it concise.`;
+             const fact = await callGeminiAPI(prompt);
+             
+             openGeminiModal(`Fun Fact about ${placeName}`, fact);
+             
+             button.innerHTML = originalButtonText;
+             button.disabled = false;
+        }
+
+        async function searchSpots() {
+            const destination = destinationInput.value.trim();
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+
+            if (!destination) {
+                openGeminiModal('Error', 'Please enter a destination.');
+                return;
+            }
+
+            resultsDiv.innerHTML = '<div class="loading-spinner"></div>';
+
+            try {
+                const geoRes = await fetch(`https://api.opentripmap.com/0.1/en/places/geoname?name=${destination}&apikey=${TRIPMAP_API_KEY}`);
+                const geoData = await geoRes.json();
+
+                if (!geoData.lat || !geoData.lon) {
+                    resultsDiv.innerHTML = `<p style='color:red;text-align:center;'>Destination not found. Please try another city.</p>`;
+                    return;
+                }
+
+                const { lat, lon } = geoData;
+                const placesRes = await fetch(`https://api.opentripmap.com/0.1/en/places/radius?lat=${lat}&lon=${lon}&radius=20000&kinds=interesting_places&rate=3&limit=12&format=json&apikey=${TRIPMAP_API_KEY}`);
+                const placesData = await placesRes.json();
+                
+                const destinationTitle = destination.charAt(0).toUpperCase() + destination.slice(1);
+                resultsDiv.innerHTML = `<h2 class="results-title">Famous Spots in ${destinationTitle}</h2><div class="results-grid"></div>`;
+                const gridContainer = resultsDiv.querySelector('.results-grid');
+
+                if (!placesData.length) {
+                    gridContainer.innerHTML = "<p style='text-align:center; color: white;'>No famous spots found in this area.</p>";
+                    return;
+                }
+
+                const placePromises = placesData.map(place => 
+                    fetch(`https://api.opentripmap.com/0.1/en/places/xid/${place.xid}?apikey=${TRIPMAP_API_KEY}`).then(res => res.json())
+                );
+                
+                const allPlaceInfo = await Promise.all(placePromises);
+
+                allPlaceInfo.forEach(info => {
+                    const name = info.name?.trim();
+                    if (!name || name.length < 3) return;
+                    
+                    const desc = info.wikipedia_extracts?.text || "No description available.";
+                    const image = info.preview?.source;
+                    const sanitizedName = name.replace(/'/g, "\\'").replace(/"/g, '\\"');
+
+                    const div = document.createElement("div");
+                    div.className = "place";
+                    div.innerHTML = `
+                        ${image ? `<img src="${image}" alt="${name}">` : ''}
+                        <div class="place-content">
+                            <h3>${name}</h3>
+                            <p>${desc.substring(0, 150)}${desc.length > 150 ? '...' : ''}</p>
+                            <div class="place-actions">
+                               <button class="fun-fact-btn" onclick="getFunFact('${sanitizedName}', this)">✨ Tell Me More</button>
+                            </div>
+                        </div>
+                    `;
+                    gridContainer.appendChild(div);
+                });
+
+            } catch (err) {
+                console.error(err);
+                resultsDiv.innerHTML = "<p style='color: red; text-align:center;'>Something went wrong. Please try again.</p>";
+            }
+        }
+    </script>
+
+</body>
+</html>
+
