@@ -1,10 +1,10 @@
 <div align="center">
 
-# 🌍 AI Travel Planner
+## 🌍 AI Travel Planner
 
-### ✨ AI-Powered Smart Travel Planning Platform
+### AI-Powered Smart Travel Planning Platform
 
-Modern full-stack travel planner built with **Flask**, **SQLite**, and intelligent travel utilities featuring authentication, live weather forecasting, responsive glassmorphism UI, and scalable architecture.
+Modern full-stack travel planner built with Flask, SQLite, and intelligent travel utilities featuring authentication, live weather forecasting, responsive glassmorphism UI, and scalable architecture.
 
 <br>
 
@@ -14,41 +14,23 @@ Modern full-stack travel planner built with **Flask**, **SQLite**, and intellige
 [![Flask](https://img.shields.io/badge/Flask-Web_Framework-black?style=for-the-badge&logo=flask)](https://flask.palletsprojects.com/)
 [![SQLite](https://img.shields.io/badge/SQLite-Database-07405E?style=for-the-badge&logo=sqlite)](https://www.sqlite.org/)
 [![Render](https://img.shields.io/badge/Render-Deployed-success?style=for-the-badge&logo=render)](https://render.com/)
-[![License](https://img.shields.io/badge/License-Educational-orange?style=for-the-badge)]()
 
 </div>
 
 ---
 
-# ✨ Live Demo
+## Live Demo
 
-## 🌐 Production Deployment
-
-> 🔗 **Live Website:**  
-> https://ai-travel-planner-fgka.onrender.com
-
-<br>
-
-<div align="center">
-
-### 🚀 Explore the Live Application
-
-Experience the modern travel planning interface with:
-- Secure Authentication
-- Live Weather Forecast
-- Smart Travel Dashboard
-- AI Suggestions
-- Responsive Glassmorphism UI
-
-</div>
+🔗 https://ai-travel-planner-fgka.onrender.com
 
 ---
 
-# 📌 Overview
+## Overview
 
 AI Travel Planner is a modern travel management platform designed to simplify trip planning through intelligent tools and a premium user experience.
 
 The application combines:
+
 - Secure user authentication
 - Real-time weather forecasting
 - Personalized travel utilities
@@ -59,26 +41,26 @@ This project was developed as a full-stack portfolio application focused on clea
 
 ---
 
-# 🚀 Features
+## Features
 
-# 🔐 Authentication System
+### 🔐 Authentication System
 
 - User Registration
 - Secure Login
 - Session-Based Authentication
-- Password Hashing with Bcrypt
+- Password Hashing
 - Protected Routes
 - Logout Functionality
 
 ---
 
-# 🌤️ Live Weather Forecast
+### 🌤️ Live Weather Forecast
 
 Real-time weather forecasting powered by OpenWeatherMap API.
 
-### Includes:
+#### Includes:
 - City-based search
-- Temperature
+- Temperature details
 - Weather conditions
 - Humidity
 - Wind speed
@@ -86,11 +68,11 @@ Real-time weather forecasting powered by OpenWeatherMap API.
 
 ---
 
-# 🤖 AI Travel Suggestions
+### 🤖 AI Travel Suggestions
 
 AI-inspired travel recommendation section designed for future Gemini AI integration.
 
-### Planned AI Features:
+#### Planned AI Features:
 - Personalized itinerary generation
 - Budget travel planning
 - Smart destination recommendations
@@ -98,22 +80,22 @@ AI-inspired travel recommendation section designed for future Gemini AI integrat
 
 ---
 
-# 🧳 Travel Dashboard
+### 🧳 Smart Travel Dashboard
 
 Interactive dashboard featuring:
 - Trending destinations
-- Modern travel cards
 - Smart navigation
+- Travel recommendation cards
 - Responsive layout
-- Smooth user experience
+- Modern UI components
 
 ---
 
-# 🎨 Premium UI/UX
+### 🎨 Premium UI/UX
 
 Designed with a modern SaaS-inspired interface.
 
-### Design Features:
+#### Design Features:
 - Glassmorphism UI
 - Gradient effects
 - Responsive design
@@ -123,43 +105,30 @@ Designed with a modern SaaS-inspired interface.
 
 ---
 
-# 🛠️ Tech Stack
+## Tech Stack
 
-# Frontend
-
+### Frontend
 - HTML5
 - CSS3
 - JavaScript
 - Font Awesome
 
----
-
-# Backend
-
+### Backend
 - Python
 - Flask
 
----
-
-# Database
-
+### Database
 - SQLite
 
----
-
-# APIs
-
+### APIs
 - OpenWeatherMap API
 
----
-
-# Deployment
-
+### Deployment
 - Render
 
 ---
 
-# 📂 Project Structure
+## Project Structure
 
 ```bash
 CP PROJECT NEW/
@@ -203,9 +172,9 @@ CP PROJECT NEW/
 
 ---
 
-# ⚙️ Installation & Setup
+## Installation & Setup
 
-# 1️⃣ Clone Repository
+### 1️⃣ Clone Repository
 
 ```bash
 git clone https://github.com/yashrajagawane/ai-travel-planner.git
@@ -213,7 +182,7 @@ git clone https://github.com/yashrajagawane/ai-travel-planner.git
 
 ---
 
-# 2️⃣ Navigate to Project Directory
+### 2️⃣ Navigate to Project Directory
 
 ```bash
 cd ai-travel-planner
@@ -221,9 +190,9 @@ cd ai-travel-planner
 
 ---
 
-# 3️⃣ Create Virtual Environment
+### 3️⃣ Create Virtual Environment
 
-## Windows
+#### Windows
 
 ```bash
 python -m venv venv
@@ -237,7 +206,7 @@ venv\Scripts\activate
 
 ---
 
-# 4️⃣ Install Dependencies
+### 4️⃣ Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -245,7 +214,7 @@ pip install -r requirements.txt
 
 ---
 
-# 5️⃣ Configure Environment Variables
+### 5️⃣ Configure Environment Variables
 
 Create a `.env` file in the root directory:
 
@@ -255,7 +224,7 @@ WEATHER_API_KEY=your_api_key_here
 
 ---
 
-# 6️⃣ Run Application
+### 6️⃣ Run Application
 
 ```bash
 python run.py
@@ -263,9 +232,9 @@ python run.py
 
 ---
 
-# 🔒 Security Features
+## Security Features
 
-- Password hashing using Flask-Bcrypt
+- Password hashing
 - Environment variable protection
 - Session authentication
 - Protected routes
@@ -273,7 +242,7 @@ python run.py
 
 ---
 
-# 📱 Responsive Design
+## Responsive Design
 
 The application is optimized for:
 - Desktop
@@ -282,9 +251,9 @@ The application is optimized for:
 
 ---
 
-# 🌟 Future Enhancements
+## Future Enhancements
 
-## Planned Upgrades
+### Planned Upgrades
 
 - PostgreSQL Database
 - Gemini AI Integration
@@ -293,13 +262,12 @@ The application is optimized for:
 - Hotel Recommendation System
 - Flight Search Integration
 - Interactive Maps
-- User Profile Customization
 - Travel Expense Tracker
 - Mobile Navigation Menu
 
 ---
 
-# 📸 Application Modules
+## Application Modules
 
 | Module | Description |
 |---|---|
@@ -312,34 +280,31 @@ The application is optimized for:
 
 ---
 
-# 🚀 Deployment
+## Deployment
 
 Application deployed successfully on Render.
 
-### Production URL:
+### Production URL
+
 https://ai-travel-planner-fgka.onrender.com
 
 ---
 
-# 👨‍💻 Developer
+## Developer
 
-<div align="center">
+### Yashraj Agawane
 
-## Yashraj Agawane
+B.Tech Information Technology Student
 
-### B.Tech Information Technology Student
-
-Passionate about:
+Focused on:
 - Full Stack Development
 - AI Applications
 - Modern UI/UX
 - Scalable Web Applications
 
-</div>
-
 ---
 
-# ⭐ Support
+## Support
 
 If you like this project:
 
@@ -349,7 +314,7 @@ If you like this project:
 
 ---
 
-# 📜 License
+## License
 
 This project is developed for:
 - Educational Purposes
@@ -358,10 +323,6 @@ This project is developed for:
 
 ---
 
-<div align="center">
+## Thank You
 
-# ✈️ Thank You for Visiting
-
-### Made with ❤️ using Flask & Modern Web Technologies
-
-</div>
+Made with ❤️ using Flask & Modern Web Technologies
