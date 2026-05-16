@@ -131,7 +131,7 @@ Designed with a modern SaaS-inspired interface.
 ## Project Structure
 
 ```bash
-CP PROJECT NEW/
+Trip Planner/
 │
 ├── app/
 │
