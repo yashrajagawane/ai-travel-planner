@@ -20,7 +20,6 @@ Modern full-stack travel planner built with Flask, SQLite, and intelligent trave
 ---
 
 ## Live Demo
-
 🔗 https://ai-travel-planner-fgka.onrender.com
 
 ---
